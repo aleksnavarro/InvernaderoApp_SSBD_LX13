@@ -35,7 +35,7 @@ export class LoginPage {
     console.log(this.usuario);
     console.log(this.password);
 
-    this.http.get("/home/").subscribe(data=>{
+    this.http.get("/login/?usuario="+this.usuario+'&password='+this.password).subscribe(data=>{
       console.log(data.text());
     },error=>{console.log("error");}
   );
