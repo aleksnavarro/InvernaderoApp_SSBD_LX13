@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController,IonicPage,NavController,NavParams } from 'ionic-angular';
 import { HomePage } from "../home/home";
 import { Http } from "@angular/http";
 
@@ -23,7 +23,8 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public http:Http) {
+              public http:Http,
+              public alertCtrl: AlertController ) {
   }
 
   ionViewDidLoad() {
@@ -37,7 +38,31 @@ export class LoginPage {
 
     this.http.get("/login/?usuario="+this.usuario+'&password='+this.password).subscribe(data=>{
       console.log(data.text());
-    },error=>{console.log("error");}
+      if(data.text()=="True"){
+        //manda a la siguiente página
+        this.navCtrl.setRoot(this.home,{usuario:this.usuario});
+      }
+      else{
+        //mandar alerta
+        const alerta=this.alertCtrl.create(
+          {
+            title: 'Oops!',
+            subTitle: 'Usuario/contraseña incorrectos',
+            buttons:['Ok']
+          }
+        );
+        alerta.present()
+      };
+    },error=>{console.log("error");
+      const alerta=this.alertCtrl.create(
+        {
+          title:'Error',
+          subTitle:'Error en la conexión',
+          buttons:['OK']
+        }
+      );
+      alerta.present();
+  }
   );
 
     //this.navCtrl.push(this.home);
