@@ -1,14 +1,14 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Lista de invernaderos
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-card *ngFor="let i of invernaderos">
-    <ion-item>
+    <ion-item (click)="clickPlanta(i)" style="background-color:#ffff82">
       <ion-icon name="information-circle" item-start></ion-icon>
       <h2>{{i.nombre}}</h2>
       <p>{{i.ubicacion}}</p>
